@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace ScriptureMemorizer
 {
-    // Clase que representa la referencia de la escritura (ej. "John 3:16" o "Proverbs 3:5-6")
     public class Reference
     {
         public string Book { get; private set; }
@@ -14,7 +13,6 @@ namespace ScriptureMemorizer
         public int StartVerse { get; private set; }
         public int? EndVerse { get; private set; }
 
-        // Constructor para versículo único
         public Reference(string book, int chapter, int verse)
         {
             Book = book;
@@ -23,7 +21,6 @@ namespace ScriptureMemorizer
             EndVerse = null;
         }
 
-        // Constructor para rango de versículos
         public Reference(string book, int chapter, int startVerse, int endVerse)
         {
             if (endVerse < startVerse)
@@ -43,7 +40,6 @@ namespace ScriptureMemorizer
         }
     }
 
-    // Clase que representa una palabra en la escritura
     public class Word
     {
         private string _text;
@@ -66,7 +62,6 @@ namespace ScriptureMemorizer
         {
             if (_hidden)
             {
-                // Reemplaza solo letras por guiones bajos, mantiene puntuación
                 var sb = new StringBuilder();
                 foreach (char c in _text)
                 {
@@ -84,7 +79,6 @@ namespace ScriptureMemorizer
         }
     }
 
-    // Clase que representa la escritura completa
     public class Scripture
     {
         private Reference _reference;
@@ -99,7 +93,6 @@ namespace ScriptureMemorizer
 
         private List<Word> ParseTextIntoWords(string text)
         {
-            // Divide el texto en palabras separadas por espacios
             var splitWords = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var words = new List<Word>();
             foreach (var w in splitWords)
@@ -114,7 +107,6 @@ namespace ScriptureMemorizer
             return _words.All(w => w.IsHidden);
         }
 
-        // Oculta un número dado de palabras aleatorias que NO estén ocultas aún (reto adicional)
         public void HideRandomWords(int count)
         {
             var notHiddenWords = _words.Where(w => !w.IsHidden).ToList();
@@ -151,7 +143,6 @@ namespace ScriptureMemorizer
     {
         static void Main(string[] args)
         {
-            // Puedes cambiar esta escritura o agregar más para extender el programa
             Reference reference = new Reference("Proverbs", 3, 5, 6);
             string scriptureText = "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.";
 
